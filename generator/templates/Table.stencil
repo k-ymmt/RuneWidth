@@ -1,0 +1,16 @@
+import Foundation
+
+struct Interval {
+    let first: UInt32
+    let last: UInt32
+}
+
+enum Table {
+{% filter trimmingNewline %}{% for variable in variables %}
+    static let {{ variable.name }}: [Interval] = [
+{% filter trimmingNewline %}{% for first, last in variable.value %}
+        .init(first: {{ first|hexValue }}, last: {{ last|hexValue }}),
+{% endfor %}{% endfilter %}
+    ]
+{% endfor %}{% endfilter %}
+}
